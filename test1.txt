@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai cho stress!?</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .popup {
+            position: absolute;
+            width: 250px;
+            height: 150px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            border: 3px solid pink;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .popup.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .final-popup {
+            width: 400px;
+            height: 200px;
+            background: #ffccf2;
+            border: 5px solid #ff66b2;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .header {
+            background-color: pink;
+            padding: 5px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .header .circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .red { background-color: red; }
+        .yellow { background-color: yellow; }
+        .green { background-color: green; }
+        .start-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: hotpink;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button class="start-button" onclick="startPopups()">Bấm vào đây!</button>
+    
+    <script>
+        function createPopup(index, total) {
+            setTimeout(() => {
+                let popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.style.top = Math.random() * window.innerHeight + 'px';
+                popup.style.left = Math.random() * window.innerWidth + 'px';
+    
+                let header = document.createElement('div');
+                header.className = 'header';
+                header.innerHTML = `
+                    <span class="circle red"></span>
+                    <span class="circle yellow"></span>
+                    <span class="circle green"></span>
+                `;
+                
+                let text = document.createElement('div');
+                text.innerHTML = '<h3 style="color: hotpink;">Không có được stress, tôi đánh đòn chị bây giờ!</h3>';
+                
+                popup.appendChild(header);
+                popup.appendChild(text);
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.classList.add('show');
+                }, 50);
+
+                if (index === total - 1) {
+                    setTimeout(showFinalPopup, 1000);
+                }
+            }, index * 100);
+        }
+    
+        function startPopups() {
+            let totalPopups = 30;
+            for (let i = 0; i < totalPopups; i++) {
+                createPopup(i, totalPopups);
+            }
+        }
+
+        function showFinalPopup() {
+            let finalPopup = document.createElement('div');
+            finalPopup.className = 'popup final-popup show';
+            finalPopup.style.top = '50%';
+            finalPopup.style.left = '50%';
+            finalPopup.style.transform = 'translate(-50%, -50%) scale(1)';
+            
+            let header = document.createElement('div');
+            header.className = 'header';
+            header.innerHTML = `
+                <span class="circle red"></span>
+                <span class="circle yellow"></span>
+                <span class="circle green"></span>
+            `;
+            
+            let text = document.createElement('div');
+            text.innerHTML = '<h3 style="color: hotpink;">🚀 Đi ngủ sớm đi ạ, mai thi tốt nháaaa! 😴</h3>';
+            
+            finalPopup.appendChild(header);
+            finalPopup.appendChild(text);
+            document.body.appendChild(finalPopup);
+        }
+    </script>
+</body>
+</html>
